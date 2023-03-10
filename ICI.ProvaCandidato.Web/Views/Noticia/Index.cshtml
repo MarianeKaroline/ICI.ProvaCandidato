@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Notícias";
+}
+<link rel="stylesheet" href="~/css/noticiaIndex.css" />
+
+<div class="container-noticias">
+    <div class="container-button">
+        <div class="button-adicionar">
+            <a href="@Url.Action("Edicao", "Noticia")"><i class='bx bx-plus add-icon'></i></a>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Título</th>
+                <th scope="col">Texto</th>
+                <th scope="col">Publicado Por</th>
+                <th scope="col">Tags</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model)
+            {
+                <tr>
+                    <th scope="row">@i.NoticiaId</th>
+                    <td>@i.Titulo</td>
+                    <td>@i.Texto</td>
+                    <td>@i.NomeUsuario</td>
+                    <td>
+                        @foreach (var tag in i.Tags)
+                        {
+                            <span>@tag.Descricao</span>
+                        }
+                    </td>
+                    <td><a href="@Url.Action("Edicao", "Noticia", new {@id = @i.NoticiaId})"><i class='bx bx-edit edit-icon'></i></a></td>
+                    <td><a href="@Url.Action("Excluir", "Noticia", new {@id = @i.NoticiaId, usuId = @i.UsuarioId})"><i class='bx bx-trash trash-icon'></i></a></td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (TempData["ErroMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ErroMessage"]
+        </div>
+    }
+</div>
+

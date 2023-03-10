@@ -1,0 +1,44 @@
+﻿@model ICI.ProvaCandidato.Negocio.Models.Tag.SalvarTagModel
+
+@{
+    ViewData["Title"] = "Tags";
+}
+<link rel="stylesheet" href="~/css/tagIndex.css" />
+
+<div class="container-tag">
+    @using (Html.BeginForm())
+    {
+        <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+            <div class="input-group">
+                @Html.TextBoxFor(t => t.Descricao, "search", new { @class = "form-control border-0 bg-light", placeholder = "Buscar tags" } )
+                <div class="input-group-append">
+                    <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class='bx bx-search'></i></button>
+                </div>
+            </div>
+        </div>        
+    }
+    <div class="container-button">
+        <div class="button-adicionar">
+            <a href="@Url.Action("Edicao", "Tag")"><i class='bx bx-plus add-icon'></i></a>
+        </div>
+    </div>
+    <div class="body-tags">
+        @foreach (var i in ViewBag.Tags)
+        {
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@i.Descricao</h5>
+                    <a href="@Url.Action("Edicao", "Tag", new {@id = @i.TagId})" class="card-link">Editar</a>
+                    <a href="@Url.Action("Excluir", "Tag", new {@id = @i.TagId})" class="card-link">Excluir</a>
+                </div>
+            </div>
+        }
+
+    </div>
+    @if (TempData["ErroMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ErroMessage"]
+        </div>
+    }
+</div>

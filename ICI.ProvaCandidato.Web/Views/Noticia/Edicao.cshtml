@@ -1,0 +1,31 @@
+﻿@model ICI.ProvaCandidato.Negocio.Models.Noticia.SalvarNoticiaModel
+
+@{
+    ViewData["Title"] = "Edição Notícias";
+}
+
+<div>
+    @using (Html.BeginForm("Edicao", "Noticia", FormMethod.Post, new { @class = "form" }))
+    {
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.UsuarioId)
+
+        <div class="mb-3">
+            <label for="titulo" class="form-label">Título</label>
+            @Html.TextBoxFor(t => t.Titulo, Model.Titulo, new { @class = "form-control", placeholder = "Titulo", required = "required", maxLength = 250 })
+            @Html.ValidationMessageFor(t => t.Titulo, "", new { @class = "alert-danger"})
+        </div>
+        <div class="mb-3">
+            <label for="texto" class="form-label">Texto</label>
+            @Html.TextAreaFor(t => t.Texto, 10, 10, new { @class = "form-control", placeholder = "Nome", required = "required" })
+            @Html.ValidationMessageFor(t => t.Texto, "", new { @class = "alert-danger"})
+        </div>
+        <div class="mb-3">
+            <label for="tags" class="form-label">Tags</label>
+            @Html.DropDownList("TagsIds", ViewBag.TagsIds as MultiSelectList, "Selecione", new { @class = "form-control chosen-tags selectpicker", multiple = "multiple", required = "required" })
+            @Html.ValidationMessageFor(t => t.TagsIds, "", new { @class = "alert-danger"})
+        </div>
+        <button type="submit" class="btn btn-primary" id="salvar">Salvar</button>
+        <button type="button" class="btn btn-primary limpar">Limpar campos</button>
+    }
+</div>

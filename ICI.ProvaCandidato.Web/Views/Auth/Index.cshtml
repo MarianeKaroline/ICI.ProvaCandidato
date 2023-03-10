@@ -1,0 +1,31 @@
+﻿@model ICI.ProvaCandidato.Negocio.Models.Auth.LoginAuthModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div>
+
+    @using (Html.BeginForm("Index", "Auth", FormMethod.Post, new { @class = "form" }))
+    {
+        <div class="mb-3">
+            <label for="email" class="form-label">E-mail</label>
+            @Html.TextBoxFor(t => t.Email, "text", new { @class = "form-control", placeholder = "E-mail", name = "email", required = "required", maxLength = 250 })
+            @Html.ValidationMessageFor(t => t.Email, "", new { @class = "alert-danger"})
+        </div>
+        <div class="mb-3">
+            <label for="senha" class="form-label">Senha</label>
+            @Html.TextBoxFor(t => t.Senha, "password", new { @class = "form-control", type = "password", placeholder = "Senha", required = "required", maxLength = 50 })
+            @Html.ValidationMessageFor(t => t.Senha, "", new { @class = "alert-danger"})
+        </div>
+        <button type="submit" class="btn btn-primary" id="salvar">Salvar</button>
+    }
+
+    @if (TempData["ErroMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["ErroMessage"]
+        </div>
+    }
+
+</div>

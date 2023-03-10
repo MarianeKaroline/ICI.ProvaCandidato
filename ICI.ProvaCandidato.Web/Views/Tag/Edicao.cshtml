@@ -1,0 +1,20 @@
+﻿@model ICI.ProvaCandidato.Negocio.Models.Tag.SalvarTagModel
+
+@{
+    ViewData["Title"] = "Edição Tags";
+}
+
+<div>
+    @using (Html.BeginForm("Edicao", "Tag", FormMethod.Post, new { @class = "form" }))
+    {
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="mb-3">
+            <label for="titulo" class="form-label">Descricao</label>
+            @Html.TextBoxFor(t => t.Descricao, Model.Descricao, new { @class = "form-control", placeholder = "Descricao", required = "required", maxLength = 100 })
+            @Html.ValidationMessageFor(t => t.Descricao, "", new { @class = "alert-danger"})
+        </div>
+        <button type="submit" class="btn btn-primary" id="salvar">Salvar</button>
+        <button type="button" class="btn btn-primary limpar">Limpar campos</button>
+    }
+</div>
